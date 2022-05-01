@@ -1,5 +1,3 @@
-
-
 class ToDoClass {
     constructor() {
         this.tasks = [
@@ -8,6 +6,21 @@ class ToDoClass {
             { task: 'Renew Library Account', isComplete: false },
         ];
         this.loadTasks();
+
+        this.addEventListeners();
+    }
+
+    addEventListeners() {
+        // add task when hitting enter instead of pushing the button
+        document.getElementById('addTask').addEventListener("keypress", event => {
+            if (event.key === 'Enter') 
+            {
+                // alert("Enter hit!");
+                // this.addTaskClick();
+                this.addTask(event.target.value);
+                event.target.value = '';
+            }
+        });
     }
 
     loadTasks() {
