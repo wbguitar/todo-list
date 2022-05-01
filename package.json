@@ -4,7 +4,10 @@
   "description": "simple todo list app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "concurrently \"npm run serve\" \"babel src -d dist --presets=es2015 -ws\"",
+    "build": "del -rf dist && babel src -d dist --presets=es2015",
+    "serve": "http-server"
   },
   "repository": {
     "type": "git",
