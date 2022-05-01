@@ -15,5 +15,11 @@
   "bugs": {
     "url": "https://github.com/wbguitar/todo-list/issues"
   },
-  "homepage": "https://github.com/wbguitar/todo-list#readme"
+  "homepage": "https://github.com/wbguitar/todo-list#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "concurrently": "^7.1.0",
+    "http-server": "^14.1.0"
+  }
 }
