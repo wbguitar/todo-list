@@ -1,10 +1,15 @@
 class ToDoClass {
     constructor() {
-        this.tasks = [
-            { task: 'Go to Dentist', isComplete: false },
-            { task: 'Do Gardening', isComplete: true },
-            { task: 'Renew Library Account', isComplete: false },
-        ];
+        // load tasks from local storage
+        this.tasks = JSON.parse(localStorage.getItem('TASKS'));
+        if (!this.tasks) {
+            this.tasks = [
+                { task: 'Go to Dentist', isComplete: false },
+                { task: 'Do Gardening', isComplete: true },
+                { task: 'Renew Library Account', isComplete: false },
+            ];
+        }
+
         this.loadTasks();
 
         this.addEventListeners();
@@ -13,8 +18,7 @@ class ToDoClass {
     addEventListeners() {
         // add task when hitting enter instead of pushing the button
         document.getElementById('addTask').addEventListener("keypress", event => {
-            if (event.key === 'Enter') 
-            {
+            if (event.key === 'Enter') {
                 // alert("Enter hit!");
                 // this.addTaskClick();
                 this.addTask(event.target.value);
@@ -24,12 +28,14 @@ class ToDoClass {
     }
 
     loadTasks() {
+        // creates HTML code appending tasks list items
         let tasksHtml = this.tasks.reduce((html, task, index) => html +=
             this.generateTaskHtml(task, index), '');
         document.getElementById('taskList').innerHTML = tasksHtml;
     }
 
     generateTaskHtml(task, index) {
+        // creates a list item for each task
         return `
          <li class="list-group-item checkbox">
           <div class="row">
@@ -53,12 +59,16 @@ class ToDoClass {
 
     toggleTaskStatus(index) {
         this.tasks[index].isComplete = !this.tasks[index].isComplete;
+        let t = this.tasks[index];
+        console.log(`taks ${t.task} toggled to ${t.isComplete}`);
+        localStorage.setItem("TASKS", JSON.stringify(this.tasks));
         this.loadTasks();
     }
 
     deleteTask(event, taskIndex) {
         event.preventDefault();
         this.tasks.splice(taskIndex, 1);
+        localStorage.setItem("TASKS", JSON.stringify(this.tasks));
         this.loadTasks();
     }
 
@@ -75,7 +85,7 @@ class ToDoClass {
         };
 
         console.log(`add task ${task}`);
-       
+
 
         // get parent element to add error class if passed task is and empty string
         let parentDiv = document.getElementById('addTask').parentElement;
@@ -87,12 +97,14 @@ class ToDoClass {
             parentDiv.classList.remove('has-error');
             // add the valid task
             this.tasks.push(newTask);
+            localStorage.setItem("TASKS", JSON.stringify(this.tasks));
             this.loadTasks();
         }
 
     }
 }
 
+let toDo;
 window.addEventListener("load", function () {
     toDo = new ToDoClass();
 });
