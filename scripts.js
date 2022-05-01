@@ -35,7 +35,7 @@ class ToDoClass {
            </div>
           </div>
          </li>
-       `;   
+       `;
     }
 
     toggleTaskStatus(index) {
@@ -47,6 +47,36 @@ class ToDoClass {
         event.preventDefault();
         this.tasks.splice(taskIndex, 1);
         this.loadTasks();
+    }
+
+    addTaskClick() {
+        let target = document.getElementById('addTask');
+        this.addTask(target.value);
+        target.value = "";
+    }
+
+    addTask(task) {
+        let newTask = {
+            task,
+            isComplete: false
+        };
+
+        console.log(`add task ${task}`);
+       
+
+        // get parent element to add error class if passed task is and empty string
+        let parentDiv = document.getElementById('addTask').parentElement;
+
+        if (task === '') {
+            parentDiv.classList.add('has-error');
+        }
+        else {
+            parentDiv.classList.remove('has-error');
+            // add the valid task
+            this.tasks.push(newTask);
+            this.loadTasks();
+        }
+
     }
 }
 
