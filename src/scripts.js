@@ -59,6 +59,9 @@ class ToDoClass {
 
     toggleTaskStatus(index) {
         this.tasks[index].isComplete = !this.tasks[index].isComplete;
+        let t = this.tasks[index];
+        console.log(`taks ${t.task} toggled to ${t.isComplete}`);
+        localStorage.setItem("TASKS", JSON.stringify(this.tasks));
         this.loadTasks();
     }
 
